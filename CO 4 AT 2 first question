@@ -1,3 +1,8 @@
+
+name:Rashika.M
+REg no: 192573010
+
+
 def find(parent, i):
     if parent[i] == i:
         return i
