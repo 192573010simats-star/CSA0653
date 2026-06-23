@@ -1,0 +1,30 @@
+def find(parent, i):
+    if parent[i] == i:
+        return i
+    return find(parent, parent[i])
+
+def union(parent, x, y):
+    parent[find(parent, x)] = find(parent, y)
+
+n = int(input("Enter number of locations: "))
+e = int(input("Enter number of routes: "))
+
+edges = []
+print("Enter source destination cost:")
+for _ in range(e):
+    u, v, w = map(int, input().split())
+    edges.append((w, u, v))
+
+edges.sort()
+
+parent = list(range(n))
+cost = 0
+
+print("\nMinimum Spanning Tree:")
+for w, u, v in edges:
+    if find(parent, u) != find(parent, v):
+        union(parent, u, v)
+        cost += w
+        print(u, "-", v, ":", w)
+
+print("Minimum Cost =", cost)
