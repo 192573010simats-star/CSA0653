@@ -7,7 +7,7 @@ import heapq
 
 def prim(n, graph):
     visited = [False] * n
-    pq = [(0, 0)]  # (weight, node)
+    pq = [(0, 0)]
     total = 0
 
     while pq:
@@ -24,6 +24,13 @@ def prim(n, graph):
     print("Total MST Cost:", total)
 
 
+# INPUT HERE
+n = 3
 
+graph = [
+    [(1, 2), (2, 4)],
+    [(0, 2), (2, 3)],
+    [(0, 4), (1, 3)]
+]
 
-
+prim(n, graph)
