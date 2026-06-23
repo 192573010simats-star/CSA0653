@@ -1,0 +1,35 @@
+# Name: M.Rashika
+# Reg no: 192573010
+# Investment Portfolio Optimization using Dynamic Programming
+
+budget = 80000
+
+capital = [20000, 30000, 40000, 50000]
+returns = [25000, 40000, 50000, 70000]
+investments = ["A", "B", "C", "D"]
+
+n = len(capital)
+
+dp = [[0] * (budget + 1) for _ in range(n + 1)]
+
+for i in range(1, n + 1):
+    for w in range(budget + 1):
+        if capital[i - 1] <= w:
+            dp[i][w] = max(
+                dp[i - 1][w],
+                returns[i - 1] + dp[i - 1][w - capital[i - 1]]
+            )
+        else:
+            dp[i][w] = dp[i - 1][w]
+
+print("Maximum Return =", dp[n][budget])
+
+w = budget
+selected = []
+
+for i in range(n, 0, -1):
+    if dp[i][w] != dp[i - 1][w]:
+        selected.append(investments[i - 1])
+        w -= capital[i - 1]
+
+print("Selected Investments =", selected[::-1])
