@@ -1,0 +1,22 @@
+# Nmae: M.Rashika
+# Reg no: 192573010
+
+
+# Package Loading using Dynamic Programming (0/1 Knapsack)
+
+wt = [10, 20, 30, 25]
+profit = [60, 100, 120, 110]
+cap = 50
+
+n = len(wt)
+dp = [[0]*(cap+1) for _ in range(n+1)]
+
+for i in range(1, n+1):
+    for w in range(cap+1):
+        if wt[i-1] <= w:
+            dp[i][w] = max(dp[i-1][w],
+                           profit[i-1] + dp[i-1][w-wt[i-1]])
+        else:
+            dp[i][w] = dp[i-1][w]
+
+print("Maximum Profit =", dp[n][cap])
