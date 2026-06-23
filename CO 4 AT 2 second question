@@ -1,0 +1,32 @@
+Name: M.Rashika
+Reg no: 192573010
+
+investment = [20000, 30000, 40000, 50000]
+profit = [25000, 40000, 50000, 65000]
+products = ["A", "B", "C", "D"]
+
+budget = 100000
+n = len(profit)
+
+dp = [[0] * (budget + 1) for _ in range(n + 1)]
+
+for i in range(1, n + 1):
+    for w in range(budget + 1):
+        if investment[i - 1] <= w:
+            dp[i][w] = max(
+                profit[i - 1] + dp[i - 1][w - investment[i - 1]],
+                dp[i - 1][w]
+            )
+        else:
+            dp[i][w] = dp[i - 1][w]
+
+w = budget
+selected = []
+
+for i in range(n, 0, -1):
+    if dp[i][w] != dp[i - 1][w]:
+        selected.append(products[i - 1])
+        w -= investment[i - 1]
+
+print("Selected Products:", selected[::-1])
+print("Maximum Profit: ₹", dp[n][budget])
