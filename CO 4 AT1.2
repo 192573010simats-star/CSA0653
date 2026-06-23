@@ -1,0 +1,47 @@
+#Reg no: 192573010
+#Name:M.Rashika
+Minimum spanning Tree--Kruskal's algorithm
+
+def find(p, i):
+    if p[i] != i:
+        p[i] = find(p, p[i])
+    return p[i]
+
+def kruskal(n, edges):
+    edges.sort(key=lambda x: x[2])
+    p = list(range(n))
+    r = [0]*n
+    mst = []
+
+    for u, v, w in edges:
+        x, y = find(p, u), find(p, v)
+        if x != y:
+            mst.append((u, v, w))
+            if r[x] < r[y]:
+                p[x] = y
+            elif r[x] > r[y]:
+                p[y] = x
+            else:
+                p[y] = x
+                r[x] += 1
+
+    print("MST:", mst)
+    print("Total Cost:", sum(w for _, _, w in mst))
+
+
+
+    
+    
+ 
+
+
+
+
+
+
+
+
+
+
+
+    
