@@ -1,0 +1,58 @@
+#Reg no: 192573010
+#Name: M.Rashika
+#Minimum spanning tree--prim's algorithm(Greedy)
+
+
+import heapq
+
+def prim(n, graph):
+    visited = [False] * n
+    pq = [(0, 0)]  # (weight, node)
+    total = 0
+
+    while pq:
+        w, u = heapq.heappop(pq)
+        if visited[u]:
+            continue
+        visited[u] = True
+        total += w
+
+        for v, wt in graph[u]:
+            if not visited[v]:
+                heapq.heappush(pq, (wt, v))
+
+    print("Total MST Cost:", total)
+
+
+
+
+"""def find(p, i):
+    if p[i] != i:
+        p[i] = find(p, p[i])
+    return p[i]
+
+def kruskal(n, edges):
+    edges.sort(key=lambda x: x[2])
+    p = list(range(n))
+    r = [0]*n
+    mst = []
+
+    for u, v, w in edges:
+        x, y = find(p, u), find(p, v)
+        if x != y:
+            mst.append((u, v, w))
+            if r[x] < r[y]:
+                p[x] = y
+            elif r[x] > r[y]:
+                p[y] = x
+            else:
+                p[y] = x
+                r[x] += 1
+
+    print("MST:", mst)
+    print("Total Cost:", sum(w for _, _, w in mst))
+
+# Example
+edges = [(0,1,10),(0,2,6),(0,3,5),(1,3,15),(2,3,4)]
+kruskal(4, edges)"""
+
