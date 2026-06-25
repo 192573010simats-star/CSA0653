@@ -1,0 +1,41 @@
+#Name: M.Rashika
+#Reg no: 192573010
+# Jobs and Employees
+
+jobs = ["J1", "J2", "J3"]
+
+employees = {
+    "E1": ["J1", "J2"],
+    "E2": ["J2", "J3"],
+    "E3": ["J1", "J3"]
+}
+
+assignment = {}
+
+def assign_job(job_index):
+    if job_index == len(jobs):
+        return True
+
+    job = jobs[job_index]
+
+    for emp in employees:
+        if job in employees[emp] and emp not in assignment.values():
+
+            assignment[job] = emp
+
+            if assign_job(job_index + 1):
+                return True
+
+            del assignment[job]
+
+    return False
+
+
+print("Job Scheduling Using Backtracking")
+print("----------------------------------")
+
+if assign_job(0):
+    for job, emp in assignment.items():
+        print(job, "->", emp)
+else:
+    print("No feasible assignment found")
