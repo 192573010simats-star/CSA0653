@@ -1,0 +1,50 @@
+# Name: M.Rashika
+# Reg no:192573010
+# Exam Conflict Graph
+
+graph = {
+    "Math": ["Physics", "Chemistry"],
+    "Physics": ["Math", "Biology"],
+    "Chemistry": ["Math"],
+    "Biology": ["Physics"]
+}
+
+time_slots = 3
+schedule = {}
+
+def is_safe(exam, slot):
+    for neighbor in graph[exam]:
+        if neighbor in schedule and schedule[neighbor] == slot:
+            return False
+    return True
+
+
+def timetable(exams, index):
+    if index == len(exams):
+        return True
+
+    exam = exams[index]
+
+    for slot in range(1, time_slots + 1):
+        if is_safe(exam, slot):
+
+            schedule[exam] = slot
+
+            if timetable(exams, index + 1):
+                return True
+
+            del schedule[exam]
+
+    return False
+
+
+exams = list(graph.keys())
+
+print("Exam Timetabling Using Graph Coloring")
+print("--------------------------------------")
+
+if timetable(exams, 0):
+    for exam in exams:
+        print(exam, "-> Time Slot", schedule[exam])
+else:
+    print("No valid timetable exists")
